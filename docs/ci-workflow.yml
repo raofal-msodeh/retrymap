@@ -1,0 +1,18 @@
+# Local CI contract for retrymap. Mirrors GitHub Actions; kept outside
+# .github because the release token lacks workflows permissions.
+name: Quality
+on: [push, pull_request]
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -e ".[dev]"
+      - run: ruff check src tests
+      - run: ruff format --check src tests
+      - run: mypy src
+      - run: python3 -m pytest -q
+      - run: python3 -m build

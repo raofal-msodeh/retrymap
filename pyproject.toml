@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "retrymap"
+version = "1.0.0"
+description = "Composable retry policies with backoff, jitter, and documented experiments"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+keywords = ["retry", "backoff", "resilience", "circuit", "fault-tolerance"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+    "Typing :: Typed",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.4", "mypy>=1.10", "build>=1.2"]
+
+[project.urls]
+Repository = "https://github.com/raofal-msodeh/retrymap"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/retrymap"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "UP", "RUF", "SIM"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unused_ignores = true
+exclude = ["^tests/"]
